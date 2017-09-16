@@ -48,6 +48,7 @@ class RssFeederViewController: UIViewController, UITableViewDelegate, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchDataFromRssFeeder()
+        navigationControllerSetup()
     }
     
     private func fetchDataFromRssFeeder()  {
@@ -80,6 +81,64 @@ class RssFeederViewController: UIViewController, UITableViewDelegate, UITableVie
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    
+    func dateAndTime() -> String {
+        let todayName = Date().dayOfWeek()!
+        
+        let currentDateTime = Date()
+        
+        // initialize the date formatter and set the style
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        
+        // get the date time String from the date object
+        let todayDate = formatter.string(from: currentDateTime) // September 16, 2017
+        
+        
+        return (todayName + ", " + todayDate)
+    }
+    
+    // MARK: Nav Bar
+    func navigationControllerSetup() {
+        let theDate = dateAndTime()
+        //set up multiline title
+        let topText = NSLocalizedString("THE WALL STREET JOURNAL RSS", comment: "")
+        let bottomText = NSLocalizedString(theDate, comment: "")
+
+        let titleParameters = [ NSFontAttributeName: UIFont(name: "BodoniSvtyTwoOSITCTT-Bold", size: 15)!, NSForegroundColorAttributeName: UIColor.black]
+        let subtitleParameters = [ NSFontAttributeName: UIFont(name: "ArialRoundedMTBold", size: 10)!, NSForegroundColorAttributeName: UIColor.gray]
+        
+        let title:NSMutableAttributedString = NSMutableAttributedString(string: topText, attributes: titleParameters)
+        let subtitle:NSAttributedString = NSAttributedString(string: bottomText, attributes: subtitleParameters)
+        
+        title.append(NSAttributedString(string: "\n"))
+        title.append(subtitle)
+        
+        let width = UIScreen.main.bounds.width
+        var height = 50
+        if let navHeight = navigationController?.navigationBar.frame.size.height {
+            height = Int(navHeight)
+        }
+        
+        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: Int(width), height: height))
+        titleLabel.attributedText = title
+        titleLabel.numberOfLines = 0
+        titleLabel.textAlignment = .center
+        
+        navigationItem.titleView = titleLabel
+
+    }
+}
+
+// extention to print out the name of the date
+extension Date {
+    func dayOfWeek() -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        return dateFormatter.string(from: self).capitalized
+        // or use capitalized(with: locale) if you want
     }
 }
 
