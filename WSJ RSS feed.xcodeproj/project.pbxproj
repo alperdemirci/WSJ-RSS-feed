@@ -14,8 +14,9 @@
 		4E0B90711F6C2CDE00561B79 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E0B906F1F6C2CDE00561B79 /* LaunchScreen.storyboard */; };
 		4E0B907C1F6C2CDE00561B79 /* WSJ_RSS_feedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0B907B1F6C2CDE00561B79 /* WSJ_RSS_feedTests.swift */; };
 		4E0B90871F6C75FA00561B79 /* XMLParserDataAdaptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0B90861F6C75FA00561B79 /* XMLParserDataAdaptor.swift */; };
-		4E0B90BD1F6C9FFA00561B79 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4E0B90BB1F6C9FFA00561B79 /* Main.storyboard */; };
 		4E0B90BE1F6C9FFA00561B79 /* RssFeederTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0B90BC1F6C9FFA00561B79 /* RssFeederTableViewCell.swift */; };
+		4EFCB4121F6DA403003D1A3D /* rssItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCB4111F6DA403003D1A3D /* rssItem.swift */; };
+		4EFCB4141F6DD500003D1A3D /* NewsAndCommentaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFCB4131F6DD500003D1A3D /* NewsAndCommentaryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,8 +41,9 @@
 		4E0B907B1F6C2CDE00561B79 /* WSJ_RSS_feedTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WSJ_RSS_feedTests.swift; sourceTree = "<group>"; };
 		4E0B907D1F6C2CDE00561B79 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4E0B90861F6C75FA00561B79 /* XMLParserDataAdaptor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XMLParserDataAdaptor.swift; sourceTree = "<group>"; };
-		4E0B90BB1F6C9FFA00561B79 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		4E0B90BC1F6C9FFA00561B79 /* RssFeederTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RssFeederTableViewCell.swift; sourceTree = "<group>"; };
+		4EFCB4111F6DA403003D1A3D /* rssItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = rssItem.swift; sourceTree = "<group>"; };
+		4EFCB4131F6DD500003D1A3D /* NewsAndCommentaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsAndCommentaryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,14 +86,15 @@
 			isa = PBXGroup;
 			children = (
 				4E0B90631F6C2CDE00561B79 /* AppDelegate.swift */,
-				4E0B90651F6C2CDE00561B79 /* RssFeederViewController.swift */,
 				4E0B906D1F6C2CDE00561B79 /* Assets.xcassets */,
 				4E0B906F1F6C2CDE00561B79 /* LaunchScreen.storyboard */,
-				4E0B90BB1F6C9FFA00561B79 /* Main.storyboard */,
+				4EFCB4131F6DD500003D1A3D /* NewsAndCommentaryViewController.swift */,
+				4E0B90651F6C2CDE00561B79 /* RssFeederViewController.swift */,
 				4E0B90BC1F6C9FFA00561B79 /* RssFeederTableViewCell.swift */,
 				4E0B90721F6C2CDE00561B79 /* Info.plist */,
 				4E0B906A1F6C2CDE00561B79 /* WSJ_RSS_feed.xcdatamodeld */,
 				4E0B90861F6C75FA00561B79 /* XMLParserDataAdaptor.swift */,
+				4EFCB4111F6DA403003D1A3D /* rssItem.swift */,
 			);
 			path = "WSJ RSS feed";
 			sourceTree = "<group>";
@@ -188,7 +191,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4E0B90BD1F6C9FFA00561B79 /* Main.storyboard in Resources */,
 				4E0B90711F6C2CDE00561B79 /* LaunchScreen.storyboard in Resources */,
 				4E0B906E1F6C2CDE00561B79 /* Assets.xcassets in Resources */,
 			);
@@ -211,6 +213,8 @@
 				4E0B90BE1F6C9FFA00561B79 /* RssFeederTableViewCell.swift in Sources */,
 				4E0B90871F6C75FA00561B79 /* XMLParserDataAdaptor.swift in Sources */,
 				4E0B906C1F6C2CDE00561B79 /* WSJ_RSS_feed.xcdatamodeld in Sources */,
+				4EFCB4141F6DD500003D1A3D /* NewsAndCommentaryViewController.swift in Sources */,
+				4EFCB4121F6DA403003D1A3D /* rssItem.swift in Sources */,
 				4E0B90661F6C2CDE00561B79 /* RssFeederViewController.swift in Sources */,
 				4E0B90641F6C2CDE00561B79 /* AppDelegate.swift in Sources */,
 			);

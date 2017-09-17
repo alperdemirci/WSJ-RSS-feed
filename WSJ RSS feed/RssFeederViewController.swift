@@ -38,8 +38,9 @@ import UIKit
 
 import UIKit
 
-class RssFeederViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class RssFeederViewController: UITableViewController {
     
+    let cellId = "cellId"
     
     @IBOutlet weak var tableView: UITableView!
     private var rssItems: [RSSItem]?
@@ -47,6 +48,9 @@ class RssFeederViewController: UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        //register tableViewCell
+        tableView.register(RssFeederTableViewCell.self, forCellReuseIdentifier: cellId)
         fetchDataFromRssFeeder()
         navigationControllerSetup()
     }
@@ -61,7 +65,7 @@ class RssFeederViewController: UIViewController, UITableViewDelegate, UITableVie
         }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //guard the rssItems for initial start as well as if there is a no data in the feeder to avoid crashes
         guard let rssItems = rssItems else {
             return 0
@@ -69,10 +73,9 @@ class RssFeederViewController: UIViewController, UITableViewDelegate, UITableVie
         return rssItems.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // return the cell from the prototype cell
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! RssFeederTableViewCell
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! RssFeederTableViewCell
         if let item = rssItems?[indexPath.item] {
             cell.item = item
         }
