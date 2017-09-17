@@ -21,6 +21,13 @@ class RssFeederViewController: UITableViewController {
         
         //register tableViewCell
         tableView.register(RssFeederTableViewCell.self, forCellReuseIdentifier: cellId)
+        
+        //set the estimatedRowHeight for tableview and activate the table view autodimensions
+        tableView.estimatedRowHeight = 60
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        
+        
         fetchDataFromRssFeeder()
         navigationTitleSetup()
     }

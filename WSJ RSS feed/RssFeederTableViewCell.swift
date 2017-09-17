@@ -9,23 +9,93 @@
 import UIKit
 
 class RssFeederTableViewCell: UITableViewCell {
-
-    @IBOutlet weak var label: UILabel!
     
+
+    var titleLabel: UILabel = {
+       var label = UILabel()
+        label.font = label.font.withSize(20)
+        label.text = ""
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    var descriptionLabel: UILabel = {
+        var label = UILabel()
+        label.font = label.font.withSize(15)
+        label.text = ""
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    let hasImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+//        imageView.layer.cornerRadius = 10
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
+    var testingConstraints = 68
+    private var linkForImage = ""
+    private var imageFlag = true
     var item: RSSItem! {
         didSet {
-            label.text = item.title
+            titleLabel.text = item.title
+            descriptionLabel.text = item.description
+            linkForImage = item.url ?? ""
+            if linkForImage == "" {
+                imageFlag = false
+//                testingConstraints = 10
+            }
+            setupViews()
         }
     }
     
+    
+    
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupViews()
+//        setupViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    
+    func setupViews() {
+        addSubview(titleLabel)
+        addSubview(hasImageView)
+        addSubview(descriptionLabel)
+        
+        // constraint added to subViews
+        if imageFlag == false {
+//            testingConstraints = 0
+            
+            
+        }
+        //else {
+//            willRemoveSubview(hasImageView)
+//            //        //title label constrrains
+//            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[titleLabel]-10-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["titleLabel": titleLabel]))
+//            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-5-[titleLabel]-10-[descriptionLabel]-10-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["titleLabel": titleLabel, "descriptionLabel": descriptionLabel]))
+//            //
+//            //        //description label constrrains
+//            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[descriptionLabel]-10-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["descriptionLabel": descriptionLabel]))
+//        }
+
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[titleLabel]-10-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["titleLabel": titleLabel]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[descriptionLabel]-10-[hasImageView(\(testingConstraints))]-10-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["descriptionLabel": descriptionLabel, "hasImageView": hasImageView]))
+        
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[titleLabel]-5-[descriptionLabel]-5-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["descriptionLabel": descriptionLabel, "titleLabel": titleLabel]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[titleLabel]-[hasImageView(\(testingConstraints))]-(>=5)-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["hasImageView": hasImageView, "titleLabel": titleLabel]))
+        
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
