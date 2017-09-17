@@ -77,16 +77,24 @@ class RssFeederViewController: UITableViewController {
         // return the cell from the prototype cell
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! RssFeederTableViewCell
         if let item = rssItems?[indexPath.item] {
+            
+            let url = URL(string: item.url!)
+            if url != nil {
+                cell.hasImageView.downloadImageFromURL(url: url!)
+            } else {
+                cell.hasImageView.image = nil
+            }
+            
             cell.item = item
         }
         return cell
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    
+    //MARK: da
     func dateAndTime() -> String {
         let todayName = Date().dayOfWeek()!
         
