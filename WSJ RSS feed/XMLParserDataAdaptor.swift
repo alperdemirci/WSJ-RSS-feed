@@ -6,20 +6,6 @@
 //  Copyright © 2017 Alper Demirci. All rights reserved.
 //
 
-struct RSSItem {
-    var title: String
-    var description: String?
-    var link: String?
-    var pubDate: String?
-//    var media = [Media]()
-    
-}
-struct Media {
-    var url: String?
-    var type: String?
-    var height: String?
-    var width: String?
-}
 
 
 
@@ -97,8 +83,6 @@ class XMLParserDataAdaptor: NSObject, XMLParserDelegate {
             self.rssItems.append(rssItem)
         }
     }
-    
-    
     
     func parserDidEndDocument(_ parser: XMLParser) {
         parserCompletionHandler?(rssItems)

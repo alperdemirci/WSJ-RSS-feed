@@ -8,41 +8,11 @@
 
 import UIKit
 
-
-//class Item {
-//    var title = ""
-//    var guid = [Guid]()
-//    var description = ""
-//    var media = [Media]()
-//    var link = ""
-//    var pubDate = Date()
-//}
-//class Category {
-//    var domain: String?
-//    var contains: String?
-//}
-//class Media {
-//    var xmlns : String?
-//    var url: String?
-//    var type: String?
-//    var media: String?
-//    var height: String?
-//    var width: String?
-//}
-//class Guid {
-//    var isPermaLink: String?
-//}
-
-
-
-
-import UIKit
-
 class RssFeederViewController: UITableViewController {
     
     let cellId = "cellId"
     
-    @IBOutlet weak var tableView: UITableView!
+    //    @IBOutlet weak var tableView: UITableView!
     private var rssItems: [RSSItem]?
     let urlString = "https://www.wsj.com/xml/rss/3_7041.xml"
     
@@ -52,7 +22,7 @@ class RssFeederViewController: UITableViewController {
         //register tableViewCell
         tableView.register(RssFeederTableViewCell.self, forCellReuseIdentifier: cellId)
         fetchDataFromRssFeeder()
-        navigationControllerSetup()
+        navigationTitleSetup()
     }
     
     private func fetchDataFromRssFeeder()  {
@@ -105,9 +75,6 @@ class RssFeederViewController: UITableViewController {
         formatter.dateStyle = .long
         
         // get the date time String from the date object
-        let todayDate = formatter.string(from: currentDateTime) // September 16, 2017
-        
-        
         return (todayName + ", " + todayDate)
     }
     
@@ -117,12 +84,7 @@ class RssFeederViewController: UITableViewController {
         //set up multiline title
         let topText = NSLocalizedString("THE WALL STREET JOURNAL RSS", comment: "")
         let bottomText = NSLocalizedString(theDate, comment: "")
-
-        let titleParameters = [ NSFontAttributeName: UIFont(name: "BodoniSvtyTwoOSITCTT-Bold", size: 15)!, NSForegroundColorAttributeName: UIColor.black]
-        let subtitleParameters = [ NSFontAttributeName: UIFont(name: "ArialRoundedMTBold", size: 10)!, NSForegroundColorAttributeName: UIColor.gray]
         
-        let title:NSMutableAttributedString = NSMutableAttributedString(string: topText, attributes: titleParameters)
-        let subtitle:NSAttributedString = NSAttributedString(string: bottomText, attributes: subtitleParameters)
         
         title.append(NSAttributedString(string: "\n"))
         title.append(subtitle)
