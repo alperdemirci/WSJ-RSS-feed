@@ -21,7 +21,8 @@ class RssFeederViewController: UITableViewController {
         
         //register tableViewCell
         tableView.register(RssFeederTableViewCell.self, forCellReuseIdentifier: cellId)
-        
+        tableView.dataSource = self
+        tableView.delegate = self
         //set the estimatedRowHeight for tableview and activate the table view autodimensions
         tableView.estimatedRowHeight = 60
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -67,11 +68,17 @@ class RssFeederViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let readArticleController = ReadArticleViewController()
+        readArticleController.rssItems = (rssItems?[indexPath.row])!
+        navigationController?.pushViewController(readArticleController, animated: true)
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
-    //MARK: da
+    //MARK: dateAndTime
     func dateAndTime() -> String {
         let todayName = Date().dayOfWeek()!
         
