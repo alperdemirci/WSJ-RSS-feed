@@ -82,20 +82,30 @@ class RssFeederViewController: UITableViewController {
         formatter.dateStyle = .long
         
         // get the date time String from the date object
+        let todayDate = formatter.string(from: currentDateTime)
         return (todayName + ", " + todayDate)
     }
     
     // MARK: Nav Bar
-    func navigationControllerSetup() {
+    func navigationTitleSetup() {
         let theDate = dateAndTime()
         //set up multiline title
         let topText = NSLocalizedString("THE WALL STREET JOURNAL RSS", comment: "")
         let bottomText = NSLocalizedString(theDate, comment: "")
         
+        //title and subtitle(date) attribute setup
+        let titleWithAttribute = [ NSFontAttributeName: UIFont(name: "BodoniSvtyTwoOSITCTT-Bold", size: 15)!, NSForegroundColorAttributeName: UIColor.black]
+        let subtitleWithAttribute = [ NSFontAttributeName: UIFont(name: "ArialRoundedMTBold", size: 10)!, NSForegroundColorAttributeName: UIColor.gray]
         
+        //push the attributed titles and subtitle
+        let title:NSMutableAttributedString = NSMutableAttributedString(string: topText, attributes: titleWithAttribute)
+        let subtitle:NSAttributedString = NSAttributedString(string: bottomText, attributes: subtitleWithAttribute)
+        
+        // append title and subtitle to title constant
         title.append(NSAttributedString(string: "\n"))
         title.append(subtitle)
         
+        //setup the size
         let width = UIScreen.main.bounds.width
         var height = 50
         if let navHeight = navigationController?.navigationBar.frame.size.height {
@@ -107,18 +117,39 @@ class RssFeederViewController: UITableViewController {
         titleLabel.numberOfLines = 0
         titleLabel.textAlignment = .center
         
+        //assign the titleLabel to navigationItem
         navigationItem.titleView = titleLabel
-
+    }
+    
+    func setNavigationBar() {
+        let navItem = UINavigationItem(title: "back")
+        let doneItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.bookmarks, target: self, action: #selector(addNewTodo))
+        navItem.rightBarButtonItem = doneItem
+        self.navigationItem.setRightBarButton(doneItem, animated: true)
+    }
+    
+    func addNewTodo() {
+        
+        
+        
+        
+        //        let vc = UIStoryboard(name:"AddNewItem", bundle:nil).instantiateViewController(withIdentifier: "addNewView") as? AddNewItemViewController
+        //        vc?.modeCheck = .dataNew
+        //        self.navigationController?.pushViewController(vc!, animated:true)
+        
+    }
+    
+    func navigationButtonSetup() {
+        
     }
 }
 
-// extention to print out the name of the date
+// extention for Date to return the name of the date fir navbar subtitle
 extension Date {
     func dayOfWeek() -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "EEEE"
         return dateFormatter.string(from: self).capitalized
-        // or use capitalized(with: locale) if you want
     }
 }
 

@@ -15,8 +15,15 @@ class XMLParserDataAdaptor: NSObject, XMLParserDelegate {
     
     private var rssItems: [RSSItem] = []
     private var currentElement = ""
+    private var currentElementMediaLinkForImage = ""
     private var currentMedia: [Media]? = nil
     private var currentLink = ""
+    private var currentURL: String = "" {
+        didSet {
+            currentURL = currentURL.replace(target: "http", withString: "https")
+        }
+    }
+    
     private var currentTitle: String = "" {
         didSet {
             currentTitle = currentTitle.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -35,6 +42,7 @@ class XMLParserDataAdaptor: NSObject, XMLParserDelegate {
     }
     
     private var parserCompletionHandler: (([RSSItem]) -> Void)?
+    
     //  MARK: - ParserFeed - Main function
     func parseFeed(url: String, completionHandler: (([RSSItem]) -> Void)?) {
         self.parserCompletionHandler = completionHandler
@@ -57,29 +65,40 @@ class XMLParserDataAdaptor: NSObject, XMLParserDelegate {
     
     //  MARK: - XML PArser Delegate Methods
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-       currentElement = elementName
+       
+        currentElement = elementName
+        currentElementMediaLinkForImage = ""
         if currentElement == "item" {
             currentTitle = ""
             currentDescription = ""
             currentPubDate = ""
+            currentURL = ""
+            
+            
+        } else if currentElement == "media:content" {
+            if let mediaLinkForImage = attributeDict["url"] {
+                //                    guard mediaLinkForImage != "" else {
+                //                        return
+                //                    }
+                currentURL = mediaLinkForImage
+            }
         }
         
-        
     }
-    
+
     func parser(_ parser: XMLParser, foundCharacters string: String) {
         switch currentElement {
             case "title": currentTitle += string
             case "description": currentDescription += string
             case "pubDate": currentPubDate += string
-//            case "media": currentMedia += string
+            case "url": currentURL += string
             default: break
         }
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
-            let rssItem = RSSItem(title: currentTitle, description: currentDescription, link: currentLink, pubDate: currentPubDate) //(title: currentTitle, description: currentDescription, pubDate: currentPubDate)
+            let rssItem = RSSItem(title: currentTitle, description: currentDescription, link: currentLink, pubDate: currentPubDate, media: currentElementMediaLinkForImage, url: currentURL)
             self.rssItems.append(rssItem)
         }
     }
