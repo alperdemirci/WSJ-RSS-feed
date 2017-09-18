@@ -8,7 +8,10 @@
 
 import UIKit
 
-class RssFeederViewController: UITableViewController {
+class RssFeederViewController: UITableViewController, TopicsDelegate {
+    
+
+    let topicsLauncher = TopicsLauncher()
     
     let cellId = "cellId"
     
@@ -147,7 +150,19 @@ class RssFeederViewController: UITableViewController {
     }
     
     func navigationButtonSetup() {
+    func callBookmarks() {
+        //show topics mmenu
+        self.topicsLauncher.delegate = self
+        self.topicsLauncher.presentTopicsView()
+//        showControllerForSettings()
         
+    }
+
+
+    //MARK: - Delegate Method
+    func topicSelected(topics: TopicsClass) {
+        print("lets see the topics", topics.name)
+        print("lets see the topics", topics.address)
     }
 }
 
