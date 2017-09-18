@@ -2,7 +2,7 @@
 //  rssItem.swift
 //  WSJ RSS feed
 //
-//  Created by alper on 9/16/17.
+//  Created by Alper Demirci on 9/16/17.
 //  Copyright © 2017 Alper Demirci. All rights reserved.
 //
 
@@ -21,7 +21,6 @@ struct RSSItem {
     var description: String?
     var link: String?
     var pubDate: String?
-    var media: String?
     var url: String?
 //    var mediaAll = [Media]()
 }

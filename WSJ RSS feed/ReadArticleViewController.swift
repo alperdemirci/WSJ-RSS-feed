@@ -23,7 +23,7 @@ class ReadArticleViewController: UIViewController {
         webViewSetUp(url: (rssItems?.link!)!)
     }
     
-    //web view set up
+    //MARK: WebView set up
     func webViewSetUp(url: String) {
         
         //if the url is empty take me to wsj/articles section instead
@@ -35,7 +35,7 @@ class ReadArticleViewController: UIViewController {
         webView.scalesPageToFit = true
         self.view.addSubview(webView)
     }
-    
-    
-    
+    // MARK: - Read
+    // I have checked the warning message and this is something I can't fix it. Link for further reading
+    //https://forums.developer.apple.com/thread/63189
 }

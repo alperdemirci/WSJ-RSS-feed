@@ -15,9 +15,11 @@ class XMLParserDataAdaptor: NSObject, XMLParserDelegate {
     
     private var rssItems: [RSSItem] = []
     private var currentElement = ""
-    private var currentElementMediaLinkForImage = ""
-    private var currentMedia: [Media]? = nil
-    private var currentLink = ""
+    private var currentLink: String = "" {
+        didSet {
+            currentLink = currentLink.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+    }
     private var currentURL: String = "" {
         didSet {
             currentURL = currentURL.replace(target: "http", withString: "https")
@@ -67,12 +69,12 @@ class XMLParserDataAdaptor: NSObject, XMLParserDelegate {
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
        
         currentElement = elementName
-        currentElementMediaLinkForImage = ""
         if currentElement == "item" {
             currentTitle = ""
             currentDescription = ""
             currentPubDate = ""
             currentURL = ""
+            currentLink = ""
             
             
         } else if currentElement == "media:content" {
@@ -92,13 +94,14 @@ class XMLParserDataAdaptor: NSObject, XMLParserDelegate {
             case "description": currentDescription += string
             case "pubDate": currentPubDate += string
             case "url": currentURL += string
+            case "link": currentLink += string
             default: break
         }
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
-            let rssItem = RSSItem(title: currentTitle, description: currentDescription, link: currentLink, pubDate: currentPubDate, media: currentElementMediaLinkForImage, url: currentURL)
+            let rssItem = RSSItem(title: currentTitle, description: currentDescription, link: currentLink, pubDate: currentPubDate, url: currentURL)
             self.rssItems.append(rssItem)
         }
     }

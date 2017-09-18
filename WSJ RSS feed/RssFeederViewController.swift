@@ -10,32 +10,25 @@ import UIKit
 
 class RssFeederViewController: UITableViewController, TopicsDelegate {
     
-
     let topicsLauncher = TopicsLauncher()
+    let helperFunctions = Helper()
     
-    let cellId = "cellId"
+    private let cellId = "cellId"
     
-    //    @IBOutlet weak var tableView: UITableView!
     private var rssItems: [RSSItem]?
-    let urlString = "https://www.wsj.com/xml/rss/3_7041.xml"
+    private var topicHeader: String = "Option"
+    var urlString = "https://www.wsj.com/xml/rss/3_7041.xml"
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //register tableViewCell
-        tableView.register(RssFeederTableViewCell.self, forCellReuseIdentifier: cellId)
-        tableView.dataSource = self
-        tableView.delegate = self
-        //set the estimatedRowHeight for tableview and activate the table view autodimensions
-        tableView.estimatedRowHeight = 60
-        tableView.rowHeight = UITableViewAutomaticDimension
-        
-        
-        
+        self.navigationController?.navigationBar.isHidden = false
+        tableviewSetup()
         fetchDataFromRssFeeder()
+        
         navigationTitleSetup()
+        navigationButtonSetup()
     }
-    
+    // MARK: - XML Data Call
     private func fetchDataFromRssFeeder()  {
         let feedParser = XMLParserDataAdaptor()
         feedParser.parseFeed(url: urlString) { (rssItems) in
@@ -44,6 +37,18 @@ class RssFeederViewController: UITableViewController, TopicsDelegate {
                 self.tableView.reloadSections(IndexSet(integer:0), with: .left)
             }
         }
+    }
+    
+    //MARK: - TableView Delegate Methods
+    func tableviewSetup() {
+        //register tableViewCell
+        tableView.register(RssFeederTableViewCell.self, forCellReuseIdentifier: cellId)
+        tableView.dataSource = self
+        tableView.delegate = self
+        
+        //set the estimatedRowHeight for tableview and activate the table view autodimensions
+        tableView.estimatedRowHeight = 60
+        tableView.rowHeight = UITableViewAutomaticDimension
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -71,34 +76,50 @@ class RssFeederViewController: UITableViewController, TopicsDelegate {
         return cell
     }
     
+    // MARK: TableView delegate methods for header title and adjustment
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let readArticleController = ReadArticleViewController()
         readArticleController.rssItems = (rssItems?[indexPath.row])!
         navigationController?.pushViewController(readArticleController, animated: true)
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 30
     }
     
-    //MARK: dateAndTime
-    func dateAndTime() -> String {
-        let todayName = Date().dayOfWeek()!
-        
-        let currentDateTime = Date()
-        
-        // initialize the date formatter and set the style
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        
-        // get the date time String from the date object
-        let todayDate = formatter.string(from: currentDateTime)
-        return (todayName + ", " + todayDate)
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return topicHeader
     }
     
-    // MARK: Nav Bar
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        //        view.tintColor = UIColor(red: 0.967, green: 0.985, blue: 0.998, alpha: 0.9)
+        
+        if let headerView = view as? UITableViewHeaderFooterView {
+            headerView.textLabel?.textColor = UIColor.black
+            headerView.textLabel?.textAlignment = .center
+            headerView.backgroundView?.backgroundColor = UIColor(red: 0.967, green: 0.985, blue: 0.998, alpha: 0.9)
+        }
+    }
+    
+    //MARK: - Delegate Method
+    func topicSelected(topics: TopicsClass) {
+        let address = topics.address
+        self.topicHeader = topics.name
+        urlString = address.replace(target: "http", withString: "https")
+        
+        fetchDataFromRssFeeder()
+        tableView.reloadData()
+    }
+}
+
+
+
+
+    // MARK: - RSSFeederViewController Extension for Navigation Controller Setup
+extension RssFeederViewController {
+    
     func navigationTitleSetup() {
-        let theDate = dateAndTime()
+        let theDate = helperFunctions.dateAndTime()
         //set up multiline title
         let topText = NSLocalizedString("THE WALL STREET JOURNAL RSS", comment: "")
         let bottomText = NSLocalizedString(theDate, comment: "")
@@ -131,47 +152,17 @@ class RssFeederViewController: UITableViewController, TopicsDelegate {
         navigationItem.titleView = titleLabel
     }
     
-    func setNavigationBar() {
-        let navItem = UINavigationItem(title: "back")
-        let doneItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.bookmarks, target: self, action: #selector(addNewTodo))
-        navItem.rightBarButtonItem = doneItem
-        self.navigationItem.setRightBarButton(doneItem, animated: true)
-    }
-    
-    func addNewTodo() {
-        
-        
-        
-        
-        //        let vc = UIStoryboard(name:"AddNewItem", bundle:nil).instantiateViewController(withIdentifier: "addNewView") as? AddNewItemViewController
-        //        vc?.modeCheck = .dataNew
-        //        self.navigationController?.pushViewController(vc!, animated:true)
-        
-    }
-    
     func navigationButtonSetup() {
-    func callBookmarks() {
+        let bookmarks = UIBarButtonItem.init(
+            barButtonSystemItem: .bookmarks,
+            target: self,
+            action: #selector(callBookmarkTopics))
+        self.navigationItem.leftBarButtonItem = bookmarks
+    }
+    
+    func callBookmarkTopics() {
         //show topics mmenu
         self.topicsLauncher.delegate = self
         self.topicsLauncher.presentTopicsView()
-//        showControllerForSettings()
-        
-    }
-
-
-    //MARK: - Delegate Method
-    func topicSelected(topics: TopicsClass) {
-        print("lets see the topics", topics.name)
-        print("lets see the topics", topics.address)
     }
 }
-
-// extention for Date to return the name of the date fir navbar subtitle
-extension Date {
-    func dayOfWeek() -> String? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter.string(from: self).capitalized
-    }
-}
-

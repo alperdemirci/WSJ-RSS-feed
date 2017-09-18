@@ -2,7 +2,7 @@
 //  TableViewCell.swift
 //  sampleTableView
 //
-//  Created by alper on 9/15/17.
+//  Created by Alper Demirci on 9/15/17.
 //  Copyright © 2017 Alper Demirci. All rights reserved.
 //
 
@@ -106,5 +106,5 @@ class RssFeederTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
 }
+
