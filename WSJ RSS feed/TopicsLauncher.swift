@@ -30,7 +30,7 @@ class TopicsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewDelega
     
     let rssTopicOption: [TopicsClass]? = {
         return [TopicsClass(name: "Option", address: "http://www.wsj.com/xml/rss/3_7041.xml" ),
-                TopicsClass(name: "World News", address: "http://www.wsj.com/xml/rss/3_7041.xml"),
+                TopicsClass(name: "World News", address: "http://www.wsj.com/xml/rss/3_7085.xml"),
                 TopicsClass(name: "U.S. Business", address: "http://www.wsj.com/xml/rss/3_7014.xml"),
                 TopicsClass(name: "Markets News", address: "http://www.wsj.com/xml/rss/3_7031.xml"),
                 TopicsClass(name: "Technology", address: "http://www.wsj.com/xml/rss/3_7455.xml"),
