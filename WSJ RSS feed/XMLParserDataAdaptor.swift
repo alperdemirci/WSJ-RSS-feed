@@ -58,7 +58,10 @@ class XMLParserDataAdaptor: NSObject, XMLParserDelegate {
     //  MARK: - ParserFeed - Main function
     func parseFeed(url: String, completionHandler: (([RSSItem]) -> Void)?) {
         self.parserCompletionHandler = completionHandler
-        
+        guard url != "" else {
+            print("There is something wrong with the URL you just send, Please double check")
+            return
+        }
         let request  = URLRequest(url: URL(string: url)!)
         let urlSession = URLSession.shared
         let task = urlSession.dataTask(with: request) { (data, response, error) in

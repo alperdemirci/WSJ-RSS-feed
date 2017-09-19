@@ -16,22 +16,26 @@ class RssFeederViewController: UITableViewController, TopicsDelegate {
     private let cellId = "cellId"
     
     private var rssItems: [RSSItem]?
-    private var topicHeader: String = "Option"
-    var urlString = "https://www.wsj.com/xml/rss/3_7041.xml"
+    private var topicHeader: String = "Opinion"
+    var urlString = "" 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.isHidden = false
         tableviewSetup()
-        fetchDataFromRssFeeder()
+        fetchDataFromRssFeeder(urlString: "https://www.wsj.com/xml/rss/3_7041.xml")
         
         navigationTitleSetup()
         navigationButtonSetup()
     }
     // MARK: - XML Data Call
-    func fetchDataFromRssFeeder()  {
+    func fetchDataFromRssFeeder(urlString: String? )  {
+        guard urlString != "" else {
+            print("Check your URL")
+            return
+        }
         let feedParser = XMLParserDataAdaptor()
-        feedParser.parseFeed(url: urlString) { (rssItems) in
+        feedParser.parseFeed(url: urlString!) { (rssItems) in
             self.rssItems = rssItems
             OperationQueue.main.addOperation {
                 self.tableView.reloadSections(IndexSet(integer:0), with: .left)
@@ -108,10 +112,13 @@ class RssFeederViewController: UITableViewController, TopicsDelegate {
     //MARK: - Delegate Method
     func topicSelected(topics: TopicsClass) {
         let address = topics.address
+        guard topics.name != self.topicHeader else {
+            return
+        }
         self.topicHeader = topics.name
         urlString = address.replace(target: "http", withString: "https")
         
-        fetchDataFromRssFeeder()
+        fetchDataFromRssFeeder(urlString: urlString)
         tableView.reloadData()
     }
 }
@@ -177,7 +184,7 @@ extension RssFeederViewController {
     }
     
     func refreshContent() {
-        fetchDataFromRssFeeder()
+        fetchDataFromRssFeeder(urlString: urlString)
         tableView.reloadData()
         view.layoutIfNeeded()
 
