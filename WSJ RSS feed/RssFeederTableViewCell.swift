@@ -1,6 +1,6 @@
 //
-//  TableViewCell.swift
-//  sampleTableView
+//  RssFeederTableViewCell.swift
+//  WSJ RSS feed
 //
 //  Created by Alper Demirci on 9/15/17.
 //  Copyright © 2017 Alper Demirci. All rights reserved.
@@ -29,25 +29,39 @@ class RssFeederTableViewCell: UITableViewCell {
         return label
     }()
     
+    var publishedDateLabel: UILabel = {
+        var label = UILabel()
+        label.font = label.font.withSize(10)
+        label.text = ""
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     let hasImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
-//        imageView.layer.cornerRadius = 10
+        imageView.contentMode = .scaleAspectFit
+//        imageView.layer.cornerRadius = 3
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.masksToBounds = true
         return imageView
     }()
-    var testingConstraints = 68
+    var testingConstraints = 75
     private var linkForImage = ""
     private var imageFlag = true
     var item: RSSItem! {
         didSet {
             titleLabel.text = item.title
             descriptionLabel.text = item.description
+            if item.pubDate != "" {
+                    publishedDateLabel.text = "Published: " + item.pubDate!
+            } else {
+                publishedDateLabel.text = "Unknown"
+            }
+            
             linkForImage = item.url ?? ""
             if linkForImage == "" {
                 imageFlag = false
-//                testingConstraints = 10
             }
             setupViews()
         }
