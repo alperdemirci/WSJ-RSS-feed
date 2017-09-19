@@ -2,12 +2,12 @@
 //  Helper.swift
 //  WSJ RSS feed
 //
-//  Created by alper on 9/18/17.
+//  Created by Alper Demirci on 9/18/17.
 //  Copyright © 2017 Alper Demirci. All rights reserved.
 //
 
 import Foundation
-import UIKit
+//import UIKit
 
 class Helper: NSObject {
     //MARK: - Date And Time Display

@@ -6,9 +6,6 @@
 //  Copyright © 2017 Alper Demirci. All rights reserved.
 //
 
-
-
-
 import Foundation
 
 class XMLParserDataAdaptor: NSObject, XMLParserDelegate {

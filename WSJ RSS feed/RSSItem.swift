@@ -1,5 +1,5 @@
 //
-//  rssItem.swift
+//  RSSItem.swift
 //  WSJ RSS feed
 //
 //  Created by Alper Demirci on 9/16/17.
