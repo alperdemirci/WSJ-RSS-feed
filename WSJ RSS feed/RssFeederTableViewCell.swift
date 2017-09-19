@@ -71,43 +71,23 @@ class RssFeederTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-//        setupViews()
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
     func setupViews() {
         addSubview(titleLabel)
         addSubview(hasImageView)
         addSubview(descriptionLabel)
-        
-        // constraint added to subViews
-        if imageFlag == false {
-//            testingConstraints = 0
+        addSubview(publishedDateLabel)
             
-            
-        }
-        //else {
-//            willRemoveSubview(hasImageView)
-//            //        //title label constrrains
-//            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[titleLabel]-10-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["titleLabel": titleLabel]))
-//            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-5-[titleLabel]-10-[descriptionLabel]-10-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["titleLabel": titleLabel, "descriptionLabel": descriptionLabel]))
-//            //
-//            //        //description label constrrains
-//            addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[descriptionLabel]-10-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["descriptionLabel": descriptionLabel]))
-//        }
-
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[titleLabel]-10-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["titleLabel": titleLabel]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-10-[descriptionLabel]-10-[hasImageView(\(testingConstraints))]-10-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["descriptionLabel": descriptionLabel, "hasImageView": hasImageView]))
-        
-        
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[titleLabel]-5-[descriptionLabel]-5-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["descriptionLabel": descriptionLabel, "titleLabel": titleLabel]))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-10-[titleLabel]-[hasImageView(\(testingConstraints))]-(>=5)-|", options: NSLayoutFormatOptions(), metrics: nil, views: ["hasImageView": hasImageView, "titleLabel": titleLabel]))
-        
+            addConstraintsWithFormat(format: "H:|-10-[v0]-10-|", views: titleLabel)
+            addConstraintsWithFormat(format: "V:|-10-[v0]-10-[v1]-10-[v2]-10-|", views: titleLabel, descriptionLabel, publishedDateLabel)
+            addConstraintsWithFormat(format: "H:|-10-[v0][v1(68)]-10-|", views: descriptionLabel, hasImageView)
+            addConstraintsWithFormat(format: "V:[v0]-5-[v1(68)]", views: titleLabel, hasImageView)
+            addConstraintsWithFormat(format: "H:|-10-[v0]", views: publishedDateLabel)
     }
 
     override func awakeFromNib() {
