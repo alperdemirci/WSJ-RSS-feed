@@ -21,6 +21,7 @@ struct RSSItem {
     var description: String?
     var link: String?
     var pubDate: String?
+    var pubDateForSorting: String?
     var url: String?
 //    var mediaAll = [Media]()
 }

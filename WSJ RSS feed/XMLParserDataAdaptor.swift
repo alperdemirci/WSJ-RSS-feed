@@ -37,9 +37,19 @@ class XMLParserDataAdaptor: NSObject, XMLParserDelegate {
             currentDescription = currentDescription.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
+    
     private var currentPubDate: String = "" {
         didSet {
             currentPubDate = currentPubDate.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+    }
+    
+    private var currentPubDateForSorting: String = "" {
+        didSet {
+            currentPubDateForSorting = currentPubDateForSorting.trimmingCharacters(in: .whitespacesAndNewlines)
+            if let range = currentPubDateForSorting.range(of: ", ") {
+                currentPubDateForSorting = currentPubDateForSorting.substring(from: range.upperBound)
+            }
         }
     }
     
@@ -73,6 +83,7 @@ class XMLParserDataAdaptor: NSObject, XMLParserDelegate {
             currentTitle = ""
             currentDescription = ""
             currentPubDate = ""
+            currentPubDateForSorting = ""
             currentURL = ""
             currentLink = ""
             
@@ -92,7 +103,9 @@ class XMLParserDataAdaptor: NSObject, XMLParserDelegate {
         switch currentElement {
             case "title": currentTitle += string
             case "description": currentDescription += string
-            case "pubDate": currentPubDate += string
+            case "pubDate":
+                currentPubDate += string
+                currentPubDateForSorting += string
             case "url": currentURL += string
             case "link": currentLink += string
             default: break
@@ -101,13 +114,14 @@ class XMLParserDataAdaptor: NSObject, XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         if elementName == "item" {
-            let rssItem = RSSItem(title: currentTitle, description: currentDescription, link: currentLink, pubDate: currentPubDate, url: currentURL)
+            let rssItem = RSSItem(title: currentTitle, description: currentDescription, link: currentLink, pubDate: currentPubDate, pubDateForSorting: currentPubDateForSorting, url: currentURL)
             self.rssItems.append(rssItem)
         }
     }
     
     func parserDidEndDocument(_ parser: XMLParser) {
-        parserCompletionHandler?(rssItems)
+        let sortedRSSItemObject = rssItems.sorted { (lhs: RSSItem, rhs: RSSItem) in lhs.pubDateForSorting! > rhs.pubDateForSorting! }
+        parserCompletionHandler?(sortedRSSItemObject)
     }
     
     func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
@@ -115,6 +129,19 @@ class XMLParserDataAdaptor: NSObject, XMLParserDelegate {
     }
 }
 
+extension String {
+    
+    func strstr(needle: String, beforeNeedle: Bool = false) -> String? {
+        guard let range = self.range(of: needle) else { return nil }
+        
+        if beforeNeedle {
+            return self.substring(to: range.lowerBound)
+        }
+        
+        return self.substring(from: range.upperBound)
+    }
+    
+}
 
 extension String
 {
