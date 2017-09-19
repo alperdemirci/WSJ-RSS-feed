@@ -29,7 +29,7 @@ class RssFeederViewController: UITableViewController, TopicsDelegate {
         navigationButtonSetup()
     }
     // MARK: - XML Data Call
-    private func fetchDataFromRssFeeder()  {
+    func fetchDataFromRssFeeder()  {
         let feedParser = XMLParserDataAdaptor()
         feedParser.parseFeed(url: urlString) { (rssItems) in
             self.rssItems = rssItems
@@ -125,7 +125,7 @@ extension RssFeederViewController {
     func navigationTitleSetup() {
         let theDate = helperFunctions.dateAndTime()
         //set up multiline title
-        let topText = NSLocalizedString("THE WALL STREET JOURNAL RSS", comment: "")
+        let topText = NSLocalizedString("THE WALL STREET JOURNAL", comment: "")
         let bottomText = NSLocalizedString(theDate, comment: "")
         
         //title and subtitle(date) attribute setup
