@@ -9,38 +9,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WSJ RSS feed/XMLParserDataAdaptor.swift"
-            timestampString = "527461486.984952"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
-            landmarkName = "parser(_:didStartElement:namespaceURI:qualifiedName:attributes:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WSJ RSS feed/XMLParserDataAdaptor.swift"
-            timestampString = "527461486.984952"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
-            landmarkName = "parser(_:didStartElement:namespaceURI:qualifiedName:attributes:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "WSJ RSS feed/SettingsLauncher.swift"
             timestampString = "527435780.669936"
             startingColumnNumber = "9223372036854775807"
@@ -57,46 +25,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WSJ RSS feed/XMLParserDataAdaptor.swift"
-            timestampString = "527461486.984952"
+            filePath = "WSJ RSS feedTests/WSJ_RSS_feedTests.swift"
+            timestampString = "527520307.320785"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "parser(_:foundCharacters:)"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "testXMLParser()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "WSJ_RSS_feed.XMLParserDataAdaptor.parser (__ObjC.XMLParser, foundCharacters : Swift.String) -&gt; ()"
-                  moduleName = "WSJ RSS feed"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alper/Desktop/Projects/WSJ%20RSS%20feed/WSJ-RSS-feed/WSJ%20RSS%20feed/XMLParserDataAdaptor.swift"
-                  timestampString = "527456225.07231"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "512">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "WSJ_RSS_feed.XMLParserDataAdaptor.parser (__ObjC.XMLParser, foundCharacters : Swift.String) -&gt; ()"
-                  moduleName = "WSJ RSS feed"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/alper/Desktop/Projects/WSJ%20RSS%20feed/WSJ-RSS-feed/WSJ%20RSS%20feed/XMLParserDataAdaptor.swift"
-                  timestampString = "527456225.074888"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "94"
-                  endingLineNumber = "94"
-                  offsetFromSymbolStart = "730">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

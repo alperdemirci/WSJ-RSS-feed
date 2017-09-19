@@ -79,9 +79,7 @@
 			children = (
 				4E0B90621F6C2CDE00561B79 /* WSJ RSS feed */,
 				4E0B90631F6C2CDE00561B79 /* AppDelegate.swift */,
-				4E0B906A1F6C2CDE00561B79 /* WSJ_RSS_feed.xcdatamodeld */,
-				4E0B90721F6C2CDE00561B79 /* Info.plist */,
-				4E0B906D1F6C2CDE00561B79 /* Assets.xcassets */,
+				4EFCB42A1F7163D5003D1A3D /* SupportingFiles */,
 				4E0B907A1F6C2CDE00561B79 /* WSJ RSS feedTests */,
 				4E0B90611F6C2CDE00561B79 /* Products */,
 			);
@@ -99,7 +97,6 @@
 		4E0B90621F6C2CDE00561B79 /* WSJ RSS feed */ = {
 			isa = PBXGroup;
 			children = (
-				4E0B906F1F6C2CDE00561B79 /* LaunchScreen.storyboard */,
 				4EFCB4201F6F3D3D003D1A3D /* View */,
 				4EFCB4211F6F3D95003D1A3D /* Controller */,
 				4EFCB41F1F6F3D0E003D1A3D /* Model */,
@@ -119,8 +116,9 @@
 		4EFCB41F1F6F3D0E003D1A3D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4EFCB4281F70322F003D1A3D /* Helper.swift */,
+				4EFCB4111F6DA403003D1A3D /* RSSItem.swift */,
 				4E0B90861F6C75FA00561B79 /* XMLParserDataAdaptor.swift */,
-				4EFCB4151F6E050A003D1A3D /* NetworkDataAdaptor.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -128,10 +126,9 @@
 		4EFCB4201F6F3D3D003D1A3D /* View */ = {
 			isa = PBXGroup;
 			children = (
-				4E0B90BC1F6C9FFA00561B79 /* RssFeederTableViewCell.swift */,
+				4E0B906F1F6C2CDE00561B79 /* LaunchScreen.storyboard */,
 				4EFCB4221F6F49A7003D1A3D /* TopicsCell.swift */,
-				4EFCB4281F70322F003D1A3D /* Helper.swift */,
-				4EFCB4111F6DA403003D1A3D /* RSSItem.swift */,
+				4E0B90BC1F6C9FFA00561B79 /* RssFeederTableViewCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -143,8 +140,19 @@
 				4E0B90651F6C2CDE00561B79 /* RssFeederViewController.swift */,
 				4EFCB4191F6EF1B3003D1A3D /* ReadArticleViewController.swift */,
 				4EFCB41D1F6F3CEA003D1A3D /* TopicsLauncher.swift */,
+				4EFCB4151F6E050A003D1A3D /* NetworkDataAdaptor.swift */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		4EFCB42A1F7163D5003D1A3D /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				4E0B906A1F6C2CDE00561B79 /* WSJ_RSS_feed.xcdatamodeld */,
+				4E0B90721F6C2CDE00561B79 /* Info.plist */,
+				4E0B906D1F6C2CDE00561B79 /* Assets.xcassets */,
+			);
+			name = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
