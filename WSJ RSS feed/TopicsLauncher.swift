@@ -10,10 +10,12 @@
 class TopicsClass: NSObject {
     var name: String
     var address: String
+    var activeSection: Bool
     
-    init(name: String, address: String) {
+    init(name: String, address: String, activeSection: Bool) {
         self.name = name
         self.address = address
+        self.activeSection = activeSection
     }
 }
 
@@ -28,13 +30,13 @@ class TopicsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewDelega
     
     var delegate: TopicsDelegate?
     
-    let rssTopicOption: [TopicsClass]? = {
-        return [TopicsClass(name: "Option", address: "http://www.wsj.com/xml/rss/3_7041.xml" ),
-                TopicsClass(name: "World News", address: "http://www.wsj.com/xml/rss/3_7085.xml"),
-                TopicsClass(name: "U.S. Business", address: "http://www.wsj.com/xml/rss/3_7014.xml"),
-                TopicsClass(name: "Markets News", address: "http://www.wsj.com/xml/rss/3_7031.xml"),
-                TopicsClass(name: "Technology", address: "http://www.wsj.com/xml/rss/3_7455.xml"),
-                TopicsClass(name: "Lifestyle", address: "http://www.wsj.com/xml/rss/3_7201.xml")]
+    var rssTopicOption: [TopicsClass]? = {
+        return [TopicsClass(name: "Opinion", address: "http://www.wsj.com/xml/rss/3_7041.xml", activeSection: true ),
+                TopicsClass(name: "World News", address: "http://www.wsj.com/xml/rss/3_7085.xml", activeSection: false),
+                TopicsClass(name: "U.S. Business", address: "http://www.wsj.com/xml/rss/3_7014.xml", activeSection: false),
+                TopicsClass(name: "Markets News", address: "http://www.wsj.com/xml/rss/3_7031.xml", activeSection: false),
+                TopicsClass(name: "Technology", address: "http://www.wsj.com/xml/rss/3_7455.xml", activeSection: false),
+                TopicsClass(name: "Lifestyle", address: "http://www.wsj.com/xml/rss/3_7201.xml", activeSection: false)]
     }()    
     
     let blackView = UIView()
@@ -90,6 +92,10 @@ class TopicsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewDelega
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath as IndexPath) as! TopicsCell
         if let topics = rssTopicOption?[indexPath.item] {
             cell.rssTopicOption = topics
+            if rssTopicOption?[indexPath.row].activeSection == true {
+                cell.backgroundColor =  UIColor.lightGray
+                cell.topicText.textColor =  UIColor.white
+            }
         }
         return cell
     }
@@ -100,7 +106,12 @@ class TopicsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        handleDismiss()
-        
+        for i in 0...(rssTopicOption!.count-1) {
+            if rssTopicOption?[i].activeSection == true {
+               rssTopicOption?[i].activeSection = false
+            }
+        }
+        rssTopicOption?[indexPath.row].activeSection = true
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.blackView.alpha = 0
             if let window = UIApplication.shared.keyWindow {
@@ -111,6 +122,13 @@ class TopicsLauncher: NSObject, UICollectionViewDelegate, UICollectionViewDelega
                 self.delegate?.topicSelected(topics: topic)
             }
         }
+    }
+    
+    func collectionView(_:UICollectionView, layout: UICollectionViewLayout, referenceSizeForHeaderInSection: Int) -> CGSize {
+        if referenceSizeForHeaderInSection > 0 {
+            return CGSize.zero
+        }
+        return CGSize(width:0, height:70)
     }
     
     override init() {
