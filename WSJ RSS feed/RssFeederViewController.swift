@@ -93,6 +93,10 @@ class RssFeederViewController: UITableViewController, TopicsDelegate {
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         //        view.tintColor = UIColor(red: 0.967, green: 0.985, blue: 0.998, alpha: 0.9)
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 1
+        view.layer.shadowOffset = CGSize.zero
+        view.layer.shadowRadius = 10
         
         if let headerView = view as? UITableViewHeaderFooterView {
             headerView.textLabel?.textColor = UIColor.black
@@ -158,11 +162,24 @@ extension RssFeederViewController {
             target: self,
             action: #selector(callBookmarkTopics))
         self.navigationItem.leftBarButtonItem = bookmarks
+        
+        let refresh = UIBarButtonItem.init(
+            barButtonSystemItem: .refresh,
+            target: self,
+            action: #selector(refreshContent))
+        self.navigationItem.rightBarButtonItem = refresh
     }
     
     func callBookmarkTopics() {
         //show topics mmenu
         self.topicsLauncher.delegate = self
         self.topicsLauncher.presentTopicsView()
+    }
+    
+    func refreshContent() {
+        fetchDataFromRssFeeder()
+        tableView.reloadData()
+        view.layoutIfNeeded()
+
     }
 }
