@@ -11,7 +11,6 @@ import UIKit
 class RssFeederViewController: UITableViewController, TopicsDelegate {
     
     let topicsLauncher = TopicsLauncher()
-    let helperFunctions = Helper()
     
     private let cellId = "cellId"
     
@@ -122,18 +121,38 @@ class RssFeederViewController: UITableViewController, TopicsDelegate {
         tableView.reloadData()
     }
 }
+    // MARK: - Exntesions
 
-
-
-
-    // MARK: - RSSFeederViewController Extension for Navigation Controller Setup
+    //MARK: To get the day of the week
+extension Date {
+    func dayOfWeek() -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEE"
+        return dateFormatter.string(from: self).capitalized
+    }
+}
+    // MARK: RSSFeederViewController Extension for Navigation Controller Setup
 extension RssFeederViewController {
     
+    //MARK: Date And Time Display
+    func dateAndTime() -> String {
+        let todayName = Date().dayOfWeek()!
+        let currentDateTime = Date()
+        
+        // initialize the date formatter and set the style
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        
+        // get the date time String from the date object
+        let todayDate = formatter.string(from: currentDateTime)
+        return (todayName + ", " + todayDate)
+    }
+    
     func navigationTitleSetup() {
-        let theDate = helperFunctions.dateAndTime()
+//        let theDate = helperFunctions.dateAndTime()
         //set up multiline title
         let topText = NSLocalizedString("THE WALL STREET JOURNAL", comment: "")
-        let bottomText = NSLocalizedString(theDate, comment: "")
+        let bottomText = NSLocalizedString(dateAndTime(), comment: "")
         
         //title and subtitle(date) attribute setup
         let titleWithAttribute = [ NSFontAttributeName: UIFont(name: "BodoniSvtyTwoOSITCTT-Bold", size: 15)!, NSForegroundColorAttributeName: UIColor.black]
