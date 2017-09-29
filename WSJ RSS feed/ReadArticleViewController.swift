@@ -27,7 +27,7 @@ class ReadArticleViewController: UIViewController {
     func webViewSetUp(url: String) {
         
         //if the url is empty take me to wsj/articles section instead
-        let urlToGoTo = url != "" ? url : "https://www.wsj.com/articles"
+        let urlToGoTo = !(url.isEmpty) ? url : "https://www.wsj.com/articles"
         let webView = UIWebView()
         webView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         webView.loadRequest(NSURLRequest(url: NSURL(string: urlToGoTo)! as URL) as URLRequest)

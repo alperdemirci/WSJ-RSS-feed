@@ -29,7 +29,7 @@ class RssFeederViewController: UITableViewController, TopicsDelegate {
     }
     // MARK: - XML Data Call
     func fetchDataFromRssFeeder(urlString: String? )  {
-        guard urlString != "" else {
+        guard !((urlString?.isEmpty)!) else {
             print("Check your URL")
             return
         }

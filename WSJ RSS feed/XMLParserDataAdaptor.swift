@@ -55,7 +55,7 @@ class XMLParserDataAdaptor: NSObject, XMLParserDelegate {
     //  MARK: - ParserFeed - Main function
     func parseFeed(url: String, completionHandler: (([RSSItem]) -> Void)?) {
         self.parserCompletionHandler = completionHandler
-        guard url != "" else {
+        guard !(url.isEmpty) else {
             print("There is something wrong with the URL you just send, Please double check")
             return
         }
@@ -90,9 +90,6 @@ class XMLParserDataAdaptor: NSObject, XMLParserDelegate {
             
         } else if currentElement == "media:content" {
             if let mediaLinkForImage = attributeDict["url"] {
-                //                    guard mediaLinkForImage != "" else {
-                //                        return
-                //                    }
                 currentURL = mediaLinkForImage
             }
         }

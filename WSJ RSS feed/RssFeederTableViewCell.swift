@@ -53,7 +53,7 @@ class RssFeederTableViewCell: UITableViewCell {
         didSet {
             titleLabel.text = item.title
             descriptionLabel.text = item.description
-            if item.pubDate != "" {
+            if !(item.pubDate?.isEmpty)! {
                     publishedDateLabel.text = "Published: " + item.pubDate!
             } else {
                 publishedDateLabel.text = "Unknown"
